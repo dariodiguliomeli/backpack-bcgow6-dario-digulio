@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	var (
+	const (
 		MIN_EDAD       = 22
 		ES_EMPLEADO    = true
 		MIN_ANTIGUEDAD = 1
