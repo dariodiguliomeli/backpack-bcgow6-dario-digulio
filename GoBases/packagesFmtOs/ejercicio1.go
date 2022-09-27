@@ -22,15 +22,15 @@ func main() {
 	products = append(products, Product{
 		Id:     "1",
 		Price:  10,
-		Amount: 1,
+		Amount: 15,
 	}, Product{
 		Id:     "2",
 		Price:  20,
-		Amount: 2,
+		Amount: 20,
 	}, Product{
 		Id:     "3",
 		Price:  30,
-		Amount: 3,
+		Amount: 33,
 	})
 	var data []byte
 	for _, product := range products {
