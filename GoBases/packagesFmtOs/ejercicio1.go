@@ -17,6 +17,10 @@ type Product struct {
 	Amount int
 }
 
+func serializeProduct(product Product) []byte {
+	return []byte(fmt.Sprintf("%s;%f;%d\n", product.Id, product.Price, product.Amount))
+}
+
 func main() {
 	var products []Product
 	products = append(products, Product{
@@ -34,9 +38,7 @@ func main() {
 	})
 	var data []byte
 	for _, product := range products {
-		serializedProduct := fmt.Sprintf("%s;%f;%d\n", product.Id, product.Price, product.Amount)
-		serializedProductInBytes := []byte(serializedProduct)
-		data = append(data, serializedProductInBytes...)
+		data = append(data, serializeProduct(product)...)
 	}
 	err := os.WriteFile("./GoBases/packagesFmtOs/data.csv", data, 0644)
 	check(err)
