@@ -1,24 +1,11 @@
 package main
 
-import (
-	"fmt"
-	"os"
-)
+import "os"
 
 func check(e error) {
 	if e != nil {
 		panic(e)
 	}
-}
-
-type Product struct {
-	Id     string
-	Price  float64
-	Amount int
-}
-
-func serializeProduct(product Product) []byte {
-	return []byte(fmt.Sprintf("%s;%f;%d\n", product.Id, product.Price, product.Amount))
 }
 
 func main() {
@@ -38,7 +25,7 @@ func main() {
 	})
 	var data []byte
 	for _, product := range products {
-		data = append(data, serializeProduct(product)...)
+		data = append(data, []byte(product.serialize())...)
 	}
 	err := os.WriteFile("./GoBases/packagesFmtOs/data.csv", data, 0644)
 	check(err)
