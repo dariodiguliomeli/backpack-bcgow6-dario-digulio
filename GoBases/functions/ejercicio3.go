@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 // Una empresa marinera necesita calcular el salario de sus empleados
 // basándose en la cantidad de horas trabajadas por mes y la categoría.
 // Si es categoría C, su salario es de $1.000 por hora
@@ -11,7 +13,7 @@ package main
 func main() {
 	var (
 		category = "C"
-		hours    = 136
+		hours    = 136.0
 		salary   = 0.0
 	)
 
@@ -22,4 +24,5 @@ func main() {
 	} else if category == "A" {
 		salary = hours * 3000 * 1.5
 	}
+	fmt.Println(salary)
 }
