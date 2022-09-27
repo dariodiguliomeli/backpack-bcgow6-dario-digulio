@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func calculateAvg(notes ...int) (average float64, err error) {
+func calculateAvg(notes ...int) (average float64, error error) {
 	sum := 0
 	for _, note := range notes {
 		if note < 0 {
@@ -13,7 +13,7 @@ func calculateAvg(notes ...int) (average float64, err error) {
 		}
 		sum += note
 	}
-	return average, nil
+	return float64(sum / len(notes)), nil
 }
 
 func showAverage(notes ...int) {
