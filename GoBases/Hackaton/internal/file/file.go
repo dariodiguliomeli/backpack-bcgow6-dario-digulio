@@ -28,10 +28,18 @@ func (f *File) Read() (tickets []service.Ticket, err error) {
 	return
 }
 
-func (f *File) Write(ticket service.Ticket) error {
+func (f *File) Write(ticket service.Ticket) (err error) {
 	var data []byte
 	data = append(data, []byte(ticket.Serialize())...)
-	err := os.WriteFile(f.Path, data, 0644)
+	err = os.WriteFile(f.Path, data, 0644)
 	check(err)
+	return
+}
+
+func (f *File) WriteAll(tickets []service.Ticket) (err error) {
+	for _, ticket := range tickets {
+		err = f.Write(ticket)
+		return
+	}
 	return nil
 }
