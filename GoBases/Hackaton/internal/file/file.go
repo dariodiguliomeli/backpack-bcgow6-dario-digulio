@@ -28,15 +28,24 @@ func createTicketWithFileRow(line string) (newTicket service.Ticket) {
 
 func (f *File) Read() (tickets []service.Ticket, err error) {
 	file, err := os.ReadFile(f.path)
+	if err != nil {
+		panic(err)
+	}
 	for index, line := range strings.Split(string(file), "\n") {
 		if index != len(strings.Split(string(file), "\n"))-1 {
-			ticket := createTicketWithFileRow(line)
+			ticket := service.Ticket{}.Deserialize(line)
 			tickets = append(tickets, ticket)
 		}
 	}
 	return
 }
 
-func (f *File) Write(service.Ticket) error {
+func (f *File) Write(ticket service.Ticket) error {
+	var data []byte
+	data = append(data, []byte(ticket.Serialize())...)
+	err := os.WriteFile(f.path, data, 0644)
+	if err != nil {
+		panic(err)
+	}
 	return nil
 }

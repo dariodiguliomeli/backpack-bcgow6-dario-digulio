@@ -15,12 +15,6 @@ type bookings struct {
 	Tickets []Ticket
 }
 
-type Ticket struct {
-	Id                              int
-	Names, Email, Destination, Date string
-	Price                           int
-}
-
 // NewBookings creates a new bookings service
 func NewBookings(Tickets []Ticket) Bookings {
 	return &bookings{Tickets: Tickets}
