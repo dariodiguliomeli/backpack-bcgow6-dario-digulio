@@ -54,10 +54,24 @@ func (b *bookings) Read(id int) (Ticket, error) {
 }
 
 func (b *bookings) Update(id int, t Ticket) (Ticket, error) {
-
-	return Ticket{}, nil
+	id, err := b.Delete(id)
+	check(err)
+	id, err = b.Create(t)
+	check(err)
+	return t, nil
 }
 
-func (b *bookings) Delete(id int) (int, error) {
-	return 0, nil
+func (b *bookings) Delete(id int) (idDeleted int, err error) {
+	fileService := FileService()
+	tickets := readAllTickets(fileService)
+	var newTickets []Ticket
+	for _, ticket := range tickets {
+		if ticket.Id != id {
+			newTickets = append(newTickets, ticket)
+		} else {
+			idDeleted = ticket.Id
+		}
+	}
+	err = fileService.WriteAll(newTickets)
+	return
 }
