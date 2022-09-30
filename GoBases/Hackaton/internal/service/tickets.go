@@ -19,6 +19,15 @@ func NewBookings(Tickets []Ticket) Bookings {
 	return &bookings{Tickets: Tickets}
 }
 
+func findTicket(id int, tickets []Ticket) (Ticket, error) {
+	for _, t := range tickets {
+		if t.Id == id {
+			return t, nil
+		}
+	}
+	return Ticket{}, nil
+}
+
 func (b *bookings) Create(t Ticket) (int, error) {
 	fileService := file.File{Path: filePath}
 	err := fileService.Write(t)
@@ -33,15 +42,6 @@ func (b *bookings) Read(id int) (Ticket, error) {
 	ticket, err := findTicket(id, tickets)
 	check(err)
 	return ticket, nil
-}
-
-func findTicket(id int, tickets []Ticket) (Ticket, error) {
-	for _, t := range tickets {
-		if t.Id == id {
-			return t, nil
-		}
-	}
-	return Ticket{}, nil
 }
 
 func (b *bookings) Update(id int, t Ticket) (Ticket, error) {

@@ -21,11 +21,15 @@ func (f *File) Read() (tickets []service.Ticket, err error) {
 	check(err)
 	for index, line := range strings.Split(string(file), "\n") {
 		if index != len(strings.Split(string(file), "\n"))-1 {
-			ticket := service.Ticket{}.Deserialize(line)
-			tickets = append(tickets, ticket)
+			go processTicket(line, tickets)
 		}
 	}
 	return
+}
+
+func processTicket(line string, tickets []service.Ticket) {
+	ticket := service.Ticket{}.Deserialize(line)
+	tickets = append(tickets, ticket)
 }
 
 func (f *File) Write(ticket service.Ticket) (err error) {
