@@ -1,14 +1,13 @@
 package service
 
-type Bookings interface {
-	// Create create a new Ticket
-	Create(t Ticket) (Ticket, error)
-	// Read read a Ticket by id
-	Read(id int) (Ticket, error)
-	// Update update values of a Ticket
-	Update(id int, t Ticket) (Ticket, error)
-	// Delete delete a Ticket by id
-	Delete(id int) (int, error)
+import "github.com/bootcamp-go/hackaton-go-bases/internal/file"
+
+const filePath string = "./GoBases/Hackaton/tickets.csv"
+
+func check(err error) {
+	if err != nil {
+		panic(err)
+	}
 }
 
 type bookings struct {
@@ -20,8 +19,11 @@ func NewBookings(Tickets []Ticket) Bookings {
 	return &bookings{Tickets: Tickets}
 }
 
-func (b *bookings) Create(t Ticket) (Ticket, error) {
-	return Ticket{}, nil
+func (b *bookings) Create(t Ticket) (int, error) {
+	fileService := file.File{Path: filePath}
+	err := fileService.Write(t)
+	check(err)
+	return t.Id, nil
 }
 
 func (b *bookings) Read(id int) (Ticket, error) {
