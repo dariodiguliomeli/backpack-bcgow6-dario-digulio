@@ -1,5 +1,9 @@
 package main
 
+type Users struct {
+	Users []User `json:"users"`
+}
+
 type User struct {
 	Id      string  `json:"id"`
 	Name    string  `json:"name"`
