@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -8,7 +9,8 @@ import (
 func welcomeHandler() func(context *gin.Context) {
 	return func(context *gin.Context) {
 		name := context.Param("name")
-		context.String(http.StatusOK, "Hello %s", name)
+		result := fmt.Sprintf("Hello %s", name)
+		context.JSON(http.StatusOK, gin.H{"message": result})
 	}
 }
 
