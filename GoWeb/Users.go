@@ -14,3 +14,13 @@ type User struct {
 	Active  bool    `json:"active"`
 	Date    string  `json:"date"`
 }
+
+type CreateUserRequest struct {
+	Name    string  `json:"name" binding:"required"`
+	Surname string  `json:"surname" binding:"required"`
+	Email   string  `json:"email" binding:"required"`
+	Age     int     `json:"age" binding:"required"`
+	Height  float64 `json:"height" binding:"required"`
+	Active  bool    `json:"active" binding:"required"`
+	Date    string  `json:"date" binding:"required"`
+}
